@@ -1,18 +1,18 @@
 import { connect } from 'react-redux';
-import { increment, decrement } from '../actions';
-import Counter from '../components/Counter';
+import { addTask, removeTask } from '../actions';
+import tasksBoard from '../components/tasksBoard';
 
 
 const mapStateToProps = (state, ownProps) => ({
-	value: state
+	tasks: state
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	onIncrement: () => dispatch(increment),
-	onDecrement: () => dispatch(decrement),
+	addTask: task => dispatch(addTask(task)),
+	removeTask: id => dispatch(removeTask(id)),
 })
 
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Counter)
+)(tasksBoard)

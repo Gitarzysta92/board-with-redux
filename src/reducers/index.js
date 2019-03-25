@@ -1,9 +1,15 @@
-export default (state= 0, action) => {
+export default (state= [], action) => {
 	switch (action.type) {
-		case 'INCREMENT':
-			return state + 1;
-		case 'DECREMENT':
-			return state - 1;
+		case 'ADD_TASK':
+			console.log(action);
+			return [
+				...state,
+				{
+					...action.task
+				}
+			]
+		case 'REMOVE_TASK':
+			return state.filter(task => task.id !== action.taskID );
 		default:
 			return state
 	}
