@@ -1,25 +1,34 @@
-import React from 'react';
-//import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import TaskForm from './taskForm'
 
-//import TaskUpdates from './taskUpdate.js'
+const Task = ({ title, text, ...meta }) => {
+	const [isEdit, editTask] = useState(false);
 
+	const updateHandler = (taskData) => {
+		editTask(false);
+		meta.update(taskData);
+	}
+	
+	const css = { backgroundColor: meta.color }
 
-const Task = ({id, name, establishDate}) => (
+	return isEdit 
+		? ( <TaskForm 
+			onSubmit={updateHandler} 
+			edit={true}
+			{...{title, text, color: meta.color}} />)
 
-	<ul>
-		<li>{id}</li>
-		<li>{name}</li>
-		<li>{establishDate}</li>
-	</ul>
-)
-
-
-/*
-Task.propTypes = {
-	value: PropTypes.number.isRequired,
-	onIncrement: PropTypes.func.isRequired,
-	onDecrement: PropTypes.func.isRequired
+		: (<div className="task col-lg-4 col-md-6 col-sm-12">
+				<div className="task-header" style={css}>
+					<span>{title}</span>
+					<div className="task-controls">
+						<button onClick={() => editTask(true)}>Edit</button>
+						<button onClick={meta.remove}>Remove</button>
+					</div>
+				</div>
+				<div className="task-content">
+					<p>{text}</p>
+				</div>
+			</div>)
 }
-*/
 
 export default Task;
